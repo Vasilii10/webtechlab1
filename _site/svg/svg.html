@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>371436</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../transform-script.js"></script>
+  </head>
+  <body>
+    <h4 title="GossJS">Преобразование в SVG</h4>
+  </body>
+  <script id="stylesheet" type="text/xsl">
+    <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+      <xsl:output method="xml" indent="yes"/>
+
+      <xsl:template match="root">
+        <svg width="{графика/@ширина}" height="{графика/@высота}">
+          <xsl:apply-templates select="графика/эллипс"/>
+        </svg>
+      </xsl:template>
+
+      <xsl:template match="эллипс">
+        <ellipse id="{@id}" fill="{@заливка}" stroke="{@ободок}" stroke-width="{@ширина-ободка}" cx="{@cx}" cy="{@cy}" rx="{@rx}" ry="{@ry}"/>
+      </xsl:template>
+    </xsl:stylesheet>
+  </script>
+
+<script id="svg_xml" type="text/xml">
+  <root>
+    <графика ширина="640" высота="480">
+    <эллипс id="графика_1" заливка="rgba(255,0,0,0.5)" ободок="white" ширина-ободка="5" cx="206" cy="139" rx="100" ry="100"/>
+    <эллипс id="графика_2" заливка="rgba(0,0,255,0.5)" ободок="white" ширина-ободка="5" cx="108" cy="111" rx="100" ry="100"/>
+    <эллипс id="графика_3" заливка="rgba(0,255,0,0.5)" ободок="white" ширина-ободка="5" cx="134" cy="215" rx="100" ry="100"/>
+    </графика>
+   </root>
+     </script>
+
+  <script>
+		window.onload = function renderTransformedXml() {
+      document.getElementById('result').innerHTML = transform('svg_xml');
+    };
+  </script>
+  <pre id="result" class="result"></pre>
+</html>
